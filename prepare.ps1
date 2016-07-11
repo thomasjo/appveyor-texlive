@@ -19,8 +19,6 @@ binary_win32 1
 collection-basic 1
 collection-binextra 1
 collection-latex 1
-collection-latexrecommended 0
-collection-wintools 1
 in_place 0
 option_adjustrepo 1
 option_autobackup 0
@@ -45,9 +43,13 @@ $PosixProfilePath = $ProfilePath -replace "\\","/"
 $InstallScriptPath = (Get-ChildItem .\install-tl-*\install-tl-windows.bat).FullName
 Invoke-Expression "$InstallScriptPath -profile $PosixProfilePath"
 
+# Install individual packages...
+Set-Item env:Path "$TargetDir\bin\win32;$env:Path"
+Invoke-Expression "tlmgr install framed"
+
 Remove-Item -Path "$TargetDir\texmf-dist\doc" -ErrorAction SilentlyContinue -WarningAction SilentlyContinue -Recurse -Force
 Remove-Item -Path "$TargetDir\texmf-dist\source" -ErrorAction SilentlyContinue -WarningAction SilentlyContinue -Recurse -Force
 
 $PackagePath = "$PSScriptRoot\texlive.7z"
 Remove-Item -Path $PackagePath -ErrorAction SilentlyContinue -WarningAction SilentlyContinue -Force
-Invoke-Expression "7za a -mx9 $PackagePath $TargetDir"
+Invoke-Expression "7z a -mx9 $PackagePath $TargetDir"

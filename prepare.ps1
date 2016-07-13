@@ -50,6 +50,9 @@ Invoke-Expression "tlmgr install framed"
 Remove-Item -Path "$TargetDir\texmf-dist\doc" -ErrorAction SilentlyContinue -WarningAction SilentlyContinue -Recurse -Force
 Remove-Item -Path "$TargetDir\texmf-dist\source" -ErrorAction SilentlyContinue -WarningAction SilentlyContinue -Recurse -Force
 
-$PackagePath = "$PSScriptRoot\texlive.7z"
+$TarballPath = "$PSScriptRoot\texlive.tar"
+$PackagePath = "$TarballPath.xz"
 Remove-Item -Path $PackagePath -ErrorAction SilentlyContinue -WarningAction SilentlyContinue -Force
-Invoke-Expression "7z a -mx9 $PackagePath $TargetDir"
+Invoke-Expression "7z a -ttar $TarballPath $TargetDir"
+Invoke-Expression "7z a -txz -mx9 $PackagePath $TarballPath"
+Remove-Item -Path $TarballPath

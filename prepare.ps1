@@ -45,7 +45,7 @@ Invoke-Expression "$InstallScriptPath -profile $PosixProfilePath"
 
 # Install individual packages...
 Set-Item env:Path "$TargetDir\bin\win32;$env:Path"
-Invoke-Expression "tlmgr install framed"
+Invoke-Expression "tlmgr install datatool etoolbox feynmf fp framed glossaries index metapost mfirstuc nomencl substr supertabular textcase xfor xkeyval"
 
 Remove-Item -Path "$TargetDir\texmf-dist\doc" -ErrorAction SilentlyContinue -WarningAction SilentlyContinue -Recurse -Force
 Remove-Item -Path "$TargetDir\texmf-dist\source" -ErrorAction SilentlyContinue -WarningAction SilentlyContinue -Recurse -Force
